@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+def readApiKey = {
+    Properties props = new Properties()
+    try {
+        props.load(new FileInputStream(new File(getRootDir().getAbsolutePath() + "/key.properties")))
+        return props.getProperty("api_key")
+    } catch (FileNotFoundException fnfe) {
+        throw new Exception("Please create a key.properties file in the root directory of the project, ${fnfe.getMessage()}")
+    }
+}
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "trv.mse.katas.dagger"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", readApiKey())
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    def deps = rootProject.ext
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$deps.supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    implementation "android.arch.lifecycle:extensions:$archComponentsVersion"
+
+    // other dependencies
+    implementation "com.squareup.retrofit2:retrofit:$deps.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$deps.retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$deps.retrofitVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$deps.rxAndroidVersion"
+    implementation "com.github.bumptech.glide:glide:$deps.glideVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$deps.rxJavaVersion"
+
+    implementation "com.google.code.gson:gson:$deps.gsonVersion"
+
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation "junit:junit:$deps.jUnitVersion"
+}

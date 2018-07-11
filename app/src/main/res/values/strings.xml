@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">dagger-android</string>
+    <string name="error_string">An error occured.</string>
+</resources>
