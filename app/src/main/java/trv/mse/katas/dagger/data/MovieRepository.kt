@@ -4,9 +4,10 @@ import io.reactivex.Observable
 import trv.mse.katas.dagger.data.api.ApiService
 import trv.mse.katas.dagger.data.api.IApiKeyProvider
 import trv.mse.katas.dagger.data.models.Movie
+import javax.inject.Inject
 
-class MovieRepository(private val apiService: ApiService,
-                      private val apiKeyProvider: IApiKeyProvider) : IMovieRepository {
+class MovieRepository @Inject constructor(private val apiService: ApiService,
+                                          private val apiKeyProvider: IApiKeyProvider) : IMovieRepository {
 
     override fun getPopularMovies(page: Int): Observable<List<Movie>> {
         return apiService.discover(page = page, apiKey = apiKeyProvider.getApiKey())
