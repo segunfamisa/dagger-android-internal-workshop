@@ -7,6 +7,7 @@ ext {
     rxAndroidVersion = "2.0.2"
     rxJavaVersion = "2.1.16"
     glideVersion = "3.7.0"
+    daggerVersion = "2.16"
 
     // test libraries versions
     jUnitVersion = "4.12"
