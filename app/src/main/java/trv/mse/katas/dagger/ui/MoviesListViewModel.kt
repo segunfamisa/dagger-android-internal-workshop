@@ -6,9 +6,10 @@ import io.reactivex.subjects.PublishSubject
 import trv.mse.katas.dagger.data.IMovieRepository
 import trv.mse.katas.dagger.data.models.Movie
 import trv.mse.katas.dagger.util.ISchedulerProvider
+import javax.inject.Inject
 
-class MoviesListViewModel(private val movieRepo: IMovieRepository,
-                          private val scheduler: ISchedulerProvider) : ViewModel() {
+class MoviesListViewModel @Inject constructor(private val movieRepo: IMovieRepository,
+                                              private val scheduler: ISchedulerProvider) : ViewModel() {
 
     private val mShowMoviesSubject = PublishSubject.create<Boolean>()
     private val mEmptySubject = PublishSubject.create<Boolean>()
